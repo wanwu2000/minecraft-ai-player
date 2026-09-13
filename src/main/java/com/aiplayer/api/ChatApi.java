@@ -1,8 +1,9 @@
 package com.aiplayer.api;
 
+import net.minecraft.entity.player.PlayerEntity;
+
 public interface ChatApi {
-    void sendMessage(String message);
-    void sendCommand(String command);
-    void sendSystemMessage(String message);
-    void playSound(String sound, float volume, float pitch);
+    void sendMessage(PlayerEntity player, String message);
+    void sendToPlayer(PlayerEntity player, String message);
+    void playSound(PlayerEntity player, String sound);
 }

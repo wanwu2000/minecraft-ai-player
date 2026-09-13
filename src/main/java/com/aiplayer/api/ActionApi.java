@@ -1,14 +1,11 @@
 package com.aiplayer.api;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.Hand;
 
 public interface ActionApi {
-    void attackEntity(net.minecraft.entity.Entity entity);
-    void breakBlock(BlockPos pos);
-    void placeBlock(BlockPos pos, ItemStack item);
-    void useItem(ItemStack item);
-    void openInventory();
-    void closeInventory();
-    void swapHotbarSlot(int slot);
+    void swingArm(net.minecraft.entity.player.PlayerEntity player, Hand hand);
+    boolean isHoldingItem(net.minecraft.entity.player.PlayerEntity player);
+    ItemStack getHeldItem(net.minecraft.entity.player.PlayerEntity player, Hand hand);
+    void equipItem(net.minecraft.entity.player.PlayerEntity player, int slot);
 }

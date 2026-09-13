@@ -3,25 +3,34 @@
   "id": "aiplayer",
   "name": "Minecraft AI Player",
   "version": "${mod_version}",
-  "description": "AI-controlled Minecraft player mod with Meteor Client integration, natural language commands, and human-like behavior. (Minecraft 1.21)",
   "license": "MIT",
-  "environment": "client",
-  "entrypoints": {
-    "main": ["com.aiplayer.AiPlayerMod"],
-    "client": ["com.aiplayer.AiPlayerClient"]
-  },
-  "mixins": ["aiplayer.mixins.json", "aiplayer.client.mixins.json"],
-  "depends": {
-    "fabricloader": ">=0.16.0",
-    "minecraft": "~1.21",
-    "java": ">=21",
-    "fabric-api": "*"
-  },
-  "suggests": {
-    "meteor": ">=1.21"
-  },
   "contact": {
     "homepage": "https://github.com/wanwu2000/minecraft-ai-player",
     "issues": "https://github.com/wanwu2000/minecraft-ai-player/issues"
+  },
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.aiplayer.AiPlayerMod"
+    ],
+    "client": [
+      "com.aiplayer.client.AiPlayerClient"
+    ]
+  },
+  "mixins": [
+    "aiplayer.mixins.json",
+    {
+      "config": "aiplayer.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "fabric": ">=0.100.0",
+    "minecraft": "~1.21",
+    "java": ">=21"
+  },
+  "recommends": {
+    "meteorclient": ">=1.21"
   }
 }

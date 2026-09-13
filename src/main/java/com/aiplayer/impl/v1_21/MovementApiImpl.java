@@ -5,7 +5,7 @@ import net.minecraft.entity.player.PlayerEntity;
 
 /**
  * Minecraft 1.21 版本移动 API 实现
- * 注意: 1.21 的 PlayerInput 可能有变化
+ * 使用标准 Fabric API 字段名
  */
 public class MovementApiImpl implements MovementApi {
     @Override
@@ -16,7 +16,7 @@ public class MovementApiImpl implements MovementApi {
         float yaw = (float) (angle * 180.0 / Math.PI);
         player.setYaw(yaw);
 
-        // 1.21 使用 input.movementForward 等字段
+        // 1.21+ 使用 input.movementForward/movementUp 等
         player.input.movementForward = 1.0f;
         player.input.movementLeft = 0.0f;
         player.input.movementUp = 0.0f;

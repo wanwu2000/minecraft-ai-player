@@ -1,4 +1,4 @@
-package com.aiplayer.impl.v1_26_1;
+package com.aiplayer.impl;
 
 import com.aiplayer.api.PerceptionApi;
 import net.minecraft.entity.Entity;
@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import java.util.List;
 
 /**
- * Minecraft 1.20.x 及更早版本感知 API 实现
+ * 默认感知 API 实现（回退用）
  */
 public class PerceptionApiImpl implements PerceptionApi {
     @Override
@@ -37,6 +37,6 @@ public class PerceptionApiImpl implements PerceptionApi {
 
     @Override
     public BlockPos getTargetBlock(PlayerEntity player, double range) {
-        return player.getTargetedBlock(range);
+        return null;
     }
 }

@@ -1,11 +1,10 @@
-package com.aiplayer.impl.v1_26_1;
+package com.aiplayer.impl;
 
 import com.aiplayer.api.MovementApi;
 import net.minecraft.entity.player.PlayerEntity;
 
 /**
- * Minecraft 1.20.x 及更早版本移动 API 实现
- * 使用旧版 Fabric API 字段名
+ * 默认移动 API 实现（回退用）
  */
 public class MovementApiImpl implements MovementApi {
     @Override
@@ -15,11 +14,7 @@ public class MovementApiImpl implements MovementApi {
         double angle = Math.atan2(dx, dz);
         float yaw = (float) (angle * 180.0 / Math.PI);
         player.setYaw(yaw);
-
-        // 旧版本使用 forwardImpulse/leftImpulse 等
-        player.input.forwardImpulse = 1.0f;
-        player.input.leftImpulse = 0.0f;
-        player.input.rightImpulse = 0.0f;
+        player.input.movementForward = 1.0f;
     }
 
     @Override
@@ -36,10 +31,7 @@ public class MovementApiImpl implements MovementApi {
 
     @Override
     public MovementDirection getMovementDirection(PlayerEntity player) {
-        if (player.input.forwardImpulse > 0) return MovementDirection.FORWARD;
-        if (player.input.forwardImpulse < 0) return MovementDirection.BACKWARD;
-        if (player.input.leftImpulse > 0) return MovementDirection.LEFT;
-        if (player.input.leftImpulse < 0) return MovementDirection.RIGHT;
+        if (player.input.movementForward > 0) return MovementDirection.FORWARD;
         return MovementDirection.NONE;
     }
 }

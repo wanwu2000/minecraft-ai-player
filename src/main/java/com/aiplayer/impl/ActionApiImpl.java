@@ -1,4 +1,4 @@
-package com.aiplayer.impl.v1_26_1;
+package com.aiplayer.impl;
 
 import com.aiplayer.api.ActionApi;
 import net.minecraft.entity.player.PlayerEntity;
@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 
 /**
- * Minecraft 1.20.x 及更早版本行动 API 实现
+ * 默认行动 API 实现（回退用）
  */
 public class ActionApiImpl implements ActionApi {
     @Override
@@ -16,7 +16,7 @@ public class ActionApiImpl implements ActionApi {
 
     @Override
     public boolean isHoldingItem(PlayerEntity player) {
-        return !player.getMainHandStack().isEmpty() || !player.getOffHandStack().isEmpty();
+        return !player.getMainHandStack().isEmpty();
     }
 
     @Override

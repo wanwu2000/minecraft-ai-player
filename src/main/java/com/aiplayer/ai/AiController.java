@@ -3,6 +3,7 @@ package com.aiplayer.ai;
 import com.aiplayer.chat.ChatSystem;
 import com.aiplayer.comet.CometBridge;
 import com.aiplayer.human.Humanizer;
+import com.aiplayer.impl.ApiFactory;
 import com.aiplayer.learning.LearningSystem;
 import net.minecraft.server.command.ServerCommandSource;
 
@@ -28,6 +29,25 @@ public class AiController {
     }
 
     /**
+     * 获取 API 实现（版本自适应）
+     */
+    public com.aiplayer.api.MovementApi getMovementApi() {
+        return ApiFactory.getMovementApi();
+    }
+
+    public com.aiplayer.api.PerceptionApi getPerceptionApi() {
+        return ApiFactory.getPerceptionApi();
+    }
+
+    public com.aiplayer.api.ActionApi getActionApi() {
+        return ApiFactory.getActionApi();
+    }
+
+    public com.aiplayer.api.ChatApi getChatApi() {
+        return ApiFactory.getChatApi();
+    }
+
+    /**
      * 构建默认行为树
      */
     private BehaviorTree buildDefaultTree() {
@@ -47,7 +67,7 @@ public class AiController {
                 return true;
             }),
 
-            // 默认： idle
+            // 默认：idle
             new TaskNode("Idle", () -> {
                 handleIdle();
                 return true;
