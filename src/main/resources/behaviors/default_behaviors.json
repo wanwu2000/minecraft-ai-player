@@ -1,0 +1,35 @@
+[
+  {
+    "name": "mine_ore",
+    "actions": [
+      {"type": "scan", "target": "ore"},
+      {"type": "move_to_target"},
+      {"type": "mine"}
+    ]
+  },
+  {
+    "name": "build_highway",
+    "actions": [
+      {"type": "clear_path"},
+      {"type": "place_blocks", "block": "stone_bricks"},
+      {"type": "place_torches"}
+    ]
+  },
+  {
+    "name": "fight_mob",
+    "actions": [
+      {"type": "identify_target"},
+      {"type": "move_to_target"},
+      {"type": "attack"},
+      {"type": "dodge_if_dangerous"}
+    ]
+  },
+  {
+    "name": "explore",
+    "actions": [
+      {"type": "move_random"},
+      {"type": "scan_enemies"},
+      {"type": "scan_loot"}
+    ]
+  }
+]

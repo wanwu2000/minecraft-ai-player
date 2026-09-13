@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "aiplayer",
+  "name": "Minecraft AI Player",
+  "version": "${mod_version}",
+  "description": "AI-controlled Minecraft player mod with Comet integration, natural language commands, and human-like behavior.",
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "main": ["com.aiplayer.AiPlayerMod"],
+    "client": ["com.aiplayer.AiPlayerClient"]
+  },
+  "mixins": ["aiplayer.mixins.json", "aiplayer.client.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "~26.1.2",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {"comet": ">=1.0.0"},
+  "contact": {
+    "homepage": "https://github.com/zhaowen2013/minecraft-ai-player",
+    "issues": "https://github.com/zhaowen2013/minecraft-ai-player/issues"
+  }
+}

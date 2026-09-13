@@ -1,0 +1,13 @@
+*.class
+*.jar
+!.github/workflows/*.yml
+build/
+.gradle/
+.idea/
+*.iml
+*.ipr
+*.iws
+.DS_Store
+Thumbs.db
+*.log
+!.github/
