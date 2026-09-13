@@ -1,66 +1,57 @@
 # Minecraft AI Player
 
-AI-controlled Minecraft player mod with Meteor Client (彗星) integration, natural language commands, and human-like behavior.
+AI-controlled Minecraft player mod with human-like behavior and natural language commands.
 
-> **注意**: 本模组需要服务器安装 [Meteor Client](https://www.meteorclient.com/) 才能使用彗星集成功能。
+## Features
 
-## 功能特性
+- 🤖 **Natural Language Control** - Control AI with Chinese/English commands
+- 🎮 **Human-like Behavior** - Reaction delays, mouse movements, occasional mistakes
+- 💬 **Chat System** - AI can chat and respond to players
+- 🧠 **Learning System** - Remembers successful experiences
+- ☄️ **Meteor Client Integration** - Support for Baritone pathfinding
+- 🔌 **Pure Client-side** - Works on any Fabric server
+- 🌙 **Day/Night Awareness** - Safer behavior at night
 
-- 🤖 **自然语言指令** - 用中文或英文控制AI玩家
-- 🎮 **拟人化行为** - 真实玩家的反应延迟、偶发失误、习惯模式
-- 💬 **聊天系统** - AI可以与你对话并回应指令
-- 🧠 **学习能力** - 越玩越聪明，记住成功经验
-- ☄️ **彗星集成** - 支持Meteor Client的模块控制和Baritone路径搜索
-- 🔌 **任意服务器** - 支持所有Fabric服务器
-- 🌙 **昼夜感知** - 夜晚更安全的行为模式
+## Installation
 
-## 安装
-
-### 要求
+### Requirements
 - Minecraft 26.1.2
 - Fabric Loader 0.16.0+
 - Fabric API
 - Java 21+
-- **Meteor Client** (推荐安装: [meteorclient.com](https://www.meteorclient.com/))
+- **Meteor Client** (optional but recommended)
 
-### 步骤
-1. 下载 Meteor Client [26.2](https://www.meteorclient.com/) 并放入 `mods` 文件夹
-2. 下载本 mod 最新发布的 `.jar` 文件
-3. 放入 `mods` 文件夹
-4. 启动游戏
-5. 使用聊天指令控制AI
+### Steps
+1. Download the latest `.jar` from releases
+2. Place in your `mods` folder
+3. Launch Minecraft with Fabric profile
+4. Use chat commands to control AI
 
-## 使用
+## Usage
 
-### AI 聊天指令
+### Chat Commands
 ```
-/ai start      - 启动AI
-/ai stop       - 停止AI
-/ai status     - 查看状态
-/ai learn      - 记录学习经验
-/ai chat "你好" - 与AI聊天
-/ai task 挖矿  - 执行任务
-```
-
-### 彗星/Meteor 指令
-```
-/mc enable scaffold    - 启用自动建筑
-/mc disable scaffold   - 禁用自动建筑
-/mc list               - 列出所有模块
-/mc baritone goto 100 64 -200  - 设置Baritone目标
-/mc baritone stop      - 停止Baritone
+/ai start      - Start AI control
+/ai stop       - Stop AI control
+/ai status     - Show AI status
+/ai chat "你好" - Chat with AI
+/ai learn      - Record learning experience
+/ai task 挖矿  - Execute specific task
+/mc enable scaffold    - Enable Meteor module
+/mc disable scaffold   - Disable Meteor module
+/mc list               - List all modules
+/mc baritone goto 100 64 200 - Set Baritone target
 ```
 
-### 自然语言命令
-- "帮我挖矿"
-- "建造高速公路"
-- "保护我"
-- "回家"
-- "去主世界建路"
+### Natural Language Commands
+- "帮我挖矿" - Mine resources
+- "建造高速公路" - Build highway with Meteor
+- "保护我" - Protect mode
+- "回家" - Return to base
 
-## 配置
+## Configuration
 
-配置文件位于 `config/aiplayer.json`:
+Config file: `config/aiplayer/config.json`
 
 ```json
 {
@@ -74,24 +65,19 @@ AI-controlled Minecraft player mod with Meteor Client (彗星) integration, natu
 }
 ```
 
-## 开源协议
-
-MIT License - 见 [LICENSE](LICENSE) 文件
-
-## 开发
+## Building from Source
 
 ```bash
 ./gradlew build
 ```
 
-构建输出位于 `build/libs/`
+Output: `build/libs/minecraft-ai-player-mc26.1.2-1.0.0.jar`
 
-## 贡献
+## License
 
-欢迎提交PR和Issue！
+MIT License - See [LICENSE](LICENSE) file
 
-## 致谢
+## Credits
 
-- [Fabric API](https://fabricmc.net/)
+- [Fabric MC](https://fabricmc.net/)
 - [Meteor Client](https://www.meteorclient.com/)
-- [Baritone](https://github.com/cabaletta/baritone)

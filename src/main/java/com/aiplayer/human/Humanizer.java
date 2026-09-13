@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 拟人化系统 - 让 AI 行为更像真实玩家
+ * 拟人化系统 - 让AI行为更像真实玩家
  *
  * 功能：
  * - 反应延迟模拟（150-300ms）
@@ -89,7 +89,7 @@ public class Humanizer {
     public boolean shouldMakeMistake() {
         if (!config.isHumanizationEnabled()) return false;
 
-        float baseChance = config.getMistakeChance();
+        float baseChance = (float) config.getMistakeChance();
 
         // 疲劳增加失误概率
         baseChance += fatigue * 0.001f;
@@ -156,7 +156,7 @@ public class Humanizer {
      * 获取情绪描述
      */
     public String getMoodDescription() {
-        if (mood >= 80) return "非常愉快";
+        if (mood >= 80) return "非常开心";
         if (mood >= 60) return "心情不错";
         if (mood >= 40) return "正常";
         if (mood >= 20) return "有点低落";

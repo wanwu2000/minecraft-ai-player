@@ -1,61 +1,85 @@
 package com.aiplayer.config;
 
+import com.aiplayer.AiPlayerMod;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import java.io.*;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+/**
+ * 配置管理器
+ */
 public class ConfigManager {
-    private static final String CONFIG_FILENAME = "aiplayer.json";
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private final File configFile;
-    private JsonObject config;
+    private ConfigData data;
 
     public ConfigManager() {
-        configFile = new File("config/aiplayer.json");
+        Path path = Paths.get("config", "aiplayer", "config.json");
+        path.toFile().getParentFile().mkdirs();
+        this.configFile = path.toFile();
         load();
     }
 
     public void load() {
-        if (!configFile.exists()) { createDefault(); }
-        else {
-            try (FileReader reader = new FileReader(configFile)) {
-                config = GSON.fromJson(reader, JsonObject.class);
-            } catch (IOException e) {
-                AiPlayerMod.LOGGER.error("Failed to load config", e);
-                createDefault();
-            }
+        if (!configFile.exists()) {
+            data = new ConfigData();
+            save();
+            return;
         }
-    }
-
-    private void createDefault() {
-        config = new JsonObject();
-        config.addProperty("enableCometIntegration", true);
-        config.addProperty("enableChat", true);
-        config.addProperty("humanizationEnabled", true);
-        config.addProperty("reactionDelayMin", 150);
-        config.addProperty("reactionDelayMax", 300);
-        config.addProperty("mistakeChance", 0.03);
-        config.addProperty("maxCPS", 10);
-        save();
+        try (FileReader reader = new FileReader(configFile, StandardCharsets.UTF_8)) {
+            data = GSON.fromJson(reader, ConfigData.class);
+            if (data == null) data = new ConfigData();
+        } catch (IOException e) {
+            AiPlayerMod.LOGGER.warn("Failed to load config", e);
+            data = new ConfigData();
+        }
     }
 
     public void save() {
-        try {
-            configFile.getParentFile().mkdirs();
-            try (FileWriter writer = new FileWriter(configFile)) {
-                GSON.toJson(config, writer);
-            }
+        try (FileWriter writer = new FileWriter(configFile, StandardCharsets.UTF_8)) {
+            GSON.toJson(data, writer);
         } catch (IOException e) {
-            AiPlayerMod.LOGGER.error("Failed to save config", e);
+            AiPlayerMod.LOGGER.warn("Failed to save config", e);
         }
     }
 
-    public boolean enableCometIntegration() { return config != null && config.getAsBoolean("enableCometIntegration"); }
-    public boolean enableChat() { return config != null && config.getAsBoolean("enableChat"); }
-    public boolean isHumanizationEnabled() { return config != null && config.getAsBoolean("humanizationEnabled"); }
-    public int getReactionDelayMin() { return config != null ? config.get("reactionDelayMin").getAsInt() : 150; }
-    public int getReactionDelayMax() { return config != null ? config.get("reactionDelayMax").getAsInt() : 300; }
-    public double getMistakeChance() { return config != null ? config.get("mistakeChance").getAsDouble() : 0.03; }
-    public int getMaxCPS() { return config != null ? config.get("maxCPS").getAsInt() : 10; }
+    public boolean enableCometIntegration() { return data.enableCometIntegration; }
+    public boolean enableChat() { return data.enableChat; }
+    public boolean isHumanizationEnabled() { return data.humanizationEnabled; }
+    public int getReactionDelayMin() { return data.reactionDelayMin; }
+    public int getReactionDelayMax() { return data.reactionDelayMax; }
+    public double getMistakeChance() { return data.mistakeChance; }
+    public int getMaxCPS() { return data.maxCPS; }
+    public int getInt(String key, int defaultVal) {
+        switch (key) {
+            case "reactionDelayMin": return data.reactionDelayMin;
+            case "reactionDelayMax": return data.reactionDelayMax;
+            case "typingDelay": return data.typingDelay;
+            case "maxCPS": return data.maxCPS;
+            default: return defaultVal;
+        }
+    }
+    public double getDouble(String key, double defaultVal) {
+        if ("mistakeChance".equals(key)) return data.mistakeChance;
+        return defaultVal;
+    }
+    public String getVersion() { return "1.0.0"; }
+
+    static class ConfigData {
+        boolean enableCometIntegration = true;
+        boolean enableChat = true;
+        boolean humanizationEnabled = true;
+        int reactionDelayMin = 150;
+        int reactionDelayMax = 300;
+        int typingDelay = 50;
+        double mistakeChance = 0.03;
+        int maxCPS = 10;
+    }
 }

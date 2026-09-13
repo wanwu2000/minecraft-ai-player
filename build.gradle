@@ -23,6 +23,7 @@ loom {
     mods {
         "${project.mod_id}" {
             sourceSet sourceSets.main
+            sourceSet sourceSets.client
         }
     }
 }
@@ -43,8 +44,10 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    modCompileOnly "net.fabricmc.fabric-api:fabric-api-${project.fabric_version}"
     modCompileOnly "com.github.SkycryptMC:Comet:tag"
     modLocalRuntime "com.github.SkycryptMC:Comet:tag"
+    include implementation('com.google.code.gson:gson:2.10.1')
 }
 
 processResources {

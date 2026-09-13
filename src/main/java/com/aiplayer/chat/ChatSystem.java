@@ -2,31 +2,31 @@ package com.aiplayer.chat;
 
 import com.aiplayer.AiPlayerMod;
 import com.aiplayer.config.ConfigManager;
+
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 增强版对话系统 - 支持情境理解、多轮对话、记忆追踪
+ * AI 聊天系统 - 纯客户端实现
  */
 public class ChatSystem {
     private static final Random RANDOM = new Random();
     private final ConfigManager config;
 
-    // 对话历史（用于上下文理解）
+    // 对话历史
     private final Deque<String> conversationHistory = new ArrayDeque<>();
     private static final int MAX_HISTORY = 50;
 
     // 用户偏好记忆
-    private final Map<String, Object> memory = new ConcurrentHashMap<>();
+    private final Map<String, Object> memory = new HashMap<>();
 
     // 当前情绪状态 (0-100)
     private int mood = 50;
 
-    // 最近任务跟踪
+    // 当前任务
     private String currentTask = null;
     private long taskStartTime = 0;
 
-    // 触发关键词 → 响应映射
+    // 响应模板
     private static final Map<String, List<String>> RESPONSE_TEMPLATES = new HashMap<>();
 
     static {
@@ -47,7 +47,7 @@ public class ChatSystem {
         // 建造相关
         addResponses("build", List.of(
             "收到建造任务！我会使用彗星的Scaffold模块。",
-            "开始建造...需要哪种建筑？房子还是桥梁？",
+            "开始建造...需要哪种结构？房子还是桥梁？",
             "动手了！先收集材料，然后开始建造~"
         ));
 
@@ -83,7 +83,7 @@ public class ChatSystem {
         addResponses("learn", List.of(
             "好的，我会记住这次经验，下次做得更好！",
             "学习完成！已更新我的行为模型。",
-            "经验已记录，感激您的指导~"
+            "经验已记录，感谢您的指导~"
         ));
 
         // 在干嘛
@@ -121,7 +121,7 @@ public class ChatSystem {
     }
 
     public ChatSystem() {
-        config = AiPlayerMod.getInstance().getConfigManager();
+        this.config = AiPlayerMod.getInstance().getConfigManager();
         loadMemory();
     }
 
@@ -137,7 +137,7 @@ public class ChatSystem {
             conversationHistory.removeFirst();
         }
 
-        // 检查是否在任务中
+        // 检查是否在执行任务
         if (lowerInput.contains("任务") || lowerInput.contains("做")) {
             return formatResponse("doing");
         }
@@ -159,7 +159,7 @@ public class ChatSystem {
      * 检测响应类型
      */
     private String detectResponseType(String input) {
-        if (input.matches("^(你好|嗨|hello|hi|hey|早上好|晚上好|下午好)")) {
+        if (input.matches(".*(你好|嗨|hello|hi|hey|早上好|晚上好|下午好).*")) {
             return "greeting";
         }
         if (input.contains("矿") || input.contains("挖") || input.contains("coal") || input.contains("diamond")) {
@@ -245,14 +245,6 @@ public class ChatSystem {
         }
     }
 
-    private String getMoodDescription() {
-        if (mood >= 80) return "非常愉快";
-        if (mood >= 60) return "心情不错";
-        if (mood >= 40) return "正常";
-        if (mood >= 20) return "有点低落";
-        return "状态不佳";
-    }
-
     /**
      * 设置当前任务
      */
@@ -277,10 +269,21 @@ public class ChatSystem {
     }
 
     /**
-     * 获取情绪状态
+     * 获取情绪值
      */
     public int getMood() {
         return mood;
+    }
+
+    /**
+     * 获取情绪描述
+     */
+    public String getMoodDescription() {
+        if (mood >= 80) return "非常开心 🎉";
+        if (mood >= 60) return "心情不错 😊";
+        if (mood >= 40) return "正常 🙂";
+        if (mood >= 20) return "有点低落 😕";
+        return "状态不佳 😔";
     }
 
     /**
@@ -288,6 +291,13 @@ public class ChatSystem {
      */
     public Map<String, Object> getMemory() {
         return new HashMap<>(memory);
+    }
+
+    /**
+     * 获取当前任务
+     */
+    public String getCurrentTask() {
+        return currentTask;
     }
 
     /**
@@ -313,7 +323,7 @@ public class ChatSystem {
     /**
      * 加载记忆
      */
-    private void loadMemory() {
+    public void loadPreferences() {
         try {
             java.nio.file.Path path = java.nio.file.Paths.get("config", "aiplayer_memory.json");
             if (java.nio.file.Files.exists(path)) {

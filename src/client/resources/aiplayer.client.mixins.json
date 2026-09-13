@@ -1,4 +1,5 @@
 {
-  "required": true,
+  "required": false,
+  "minVersion": "0.8",
   "package": "com.aiplayer.mixins.client"
 }
