@@ -1,6 +1,8 @@
 # Minecraft AI Player
 
-AI-controlled Minecraft player mod with Comet integration, natural language commands, and human-like behavior.
+AI-controlled Minecraft player mod with Meteor Client (彗星) integration, natural language commands, and human-like behavior.
+
+> **注意**: 本模组需要服务器安装 [Meteor Client](https://www.meteorclient.com/) 才能使用彗星集成功能。
 
 ## 功能特性
 
@@ -8,7 +10,7 @@ AI-controlled Minecraft player mod with Comet integration, natural language comm
 - 🎮 **拟人化行为** - 真实玩家的反应延迟、偶发失误、习惯模式
 - 💬 **聊天系统** - AI可以与你对话并回应指令
 - 🧠 **学习能力** - 越玩越聪明，记住成功经验
-- ☄️ **彗星集成** - 支持Comet插件的行为录制和回放
+- ☄️ **彗星集成** - 支持Meteor Client的模块控制和Baritone路径搜索
 - 🔌 **任意服务器** - 支持所有Fabric服务器
 - 🌙 **昼夜感知** - 夜晚更安全的行为模式
 
@@ -19,16 +21,18 @@ AI-controlled Minecraft player mod with Comet integration, natural language comm
 - Fabric Loader 0.16.0+
 - Fabric API
 - Java 21+
+- **Meteor Client** (推荐安装: [meteorclient.com](https://www.meteorclient.com/))
 
 ### 步骤
-1. 下载最新发布的 `.jar` 文件
-2. 放入 `mods` 文件夹
-3. 启动游戏
-4. 使用聊天指令控制AI
+1. 下载 Meteor Client [26.2](https://www.meteorclient.com/) 并放入 `mods` 文件夹
+2. 下载本 mod 最新发布的 `.jar` 文件
+3. 放入 `mods` 文件夹
+4. 启动游戏
+5. 使用聊天指令控制AI
 
 ## 使用
 
-### 聊天指令
+### AI 聊天指令
 ```
 /ai start      - 启动AI
 /ai stop       - 停止AI
@@ -38,18 +42,21 @@ AI-controlled Minecraft player mod with Comet integration, natural language comm
 /ai task 挖矿  - 执行任务
 ```
 
+### 彗星/Meteor 指令
+```
+/mc enable scaffold    - 启用自动建筑
+/mc disable scaffold   - 禁用自动建筑
+/mc list               - 列出所有模块
+/mc baritone goto 100 64 -200  - 设置Baritone目标
+/mc baritone stop      - 停止Baritone
+```
+
 ### 自然语言命令
 - "帮我挖矿"
 - "建造高速公路"
 - "保护我"
 - "回家"
 - "去主世界建路"
-
-### 彗星插件集成
-如果服务器安装了Comet插件，AI会自动：
-- 录制你的操作习惯
-- 回放行为序列
-- 优化决策路径
 
 ## 配置
 
@@ -86,4 +93,5 @@ MIT License - 见 [LICENSE](LICENSE) 文件
 ## 致谢
 
 - [Fabric API](https://fabricmc.net/)
-- [Comet](https://github.com/SkycryptMC/Comet)
+- [Meteor Client](https://www.meteorclient.com/)
+- [Baritone](https://github.com/cabaletta/baritone)
