@@ -17,11 +17,11 @@ AI-controlled Minecraft player mod with Meteor Client (彗星) integration, natu
 ## 安装
 
 ### 要求
-- Minecraft 26.1.2
+- Minecraft 1.21
 - Fabric Loader 0.16.0+
 - Fabric API
 - Java 21+
-- **Meteor Client** (推荐安装: [meteorclient.com](https://www.meteorclient.com/))
+- **Meteor Client 1.21** (推荐安装: [meteorclient.com](https://www.meteorclient.com/))
 
 ### 步骤
 1. 下载 Meteor Client [26.2](https://www.meteorclient.com/) 并放入 `mods` 文件夹
